@@ -1,0 +1,29 @@
+name: test
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          tools: none
+        env:
+          phpts: ts
+          update: true
+
+      - name: Test BGGP4 Batch
+        run: call "%GITHUB_WORKSPACE%\test.bat" batch
+        shell: cmd
+
+      - name: Test BGGP4 PHP
+        run: call "%GITHUB_WORKSPACE%\test.bat" php
+        shell: cmd
