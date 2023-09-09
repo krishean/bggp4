@@ -12,8 +12,14 @@ set "window_title=%~n0"
 set "window_title=%window_title:_= %"
 title %window_title%
 
-rem can be x64 or x86
-set "Platform=x64"
+if not defined Platform (
+    rem can be x64 or x86
+    if "%PROCESSOR_ARCHITECTURE%"=="AMD64" (
+        set "Platform=x64"
+    ) else (
+        set "Platform=x86"
+    )
+)
 
 set "php_ver=8.2.10"
 set "php_dir=php"
